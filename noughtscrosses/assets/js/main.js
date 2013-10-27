@@ -197,8 +197,6 @@ TTT.prototype.winner = function() {
         var slices = Array.prototype.slice.call(ttt.win, l, l + 3),
             check = ttt.boxes[parseInt(slices[0], 0)] + ttt.boxes[parseInt(slices[1], 0)] + ttt.boxes[parseInt(slices[2], 0)] % 3;
 
-        //console.log(check);
-
         if (check === 3 ) {
             console.log('x wins');
             ttt.message.html('x wins');
@@ -245,7 +243,7 @@ function render() {
     // Handle preloading images;
     var preload = [ttt.image.nought, ttt.image.cross];
 
-    for (i = 0; i < preload.length; i++) {
+    for (var i = 0; i < preload.length; i++) {
         image = new Image();
         image.src = preload[i];
     }
