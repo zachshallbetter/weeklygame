@@ -10,7 +10,7 @@ function TTT() {
     this.win = '012'+'345'+'678'+'246'+'036'+'147'+'258'+'048';
     this.start = Math.random() < 0.5 ? -1 : 1;
     this.turn = this.start;
-    this.cpu = (this.turn == 1) ? -1 : 1;
+    this.cpu = (this.turn === 1) ? -1 : 1;
     
     this.image = {
         nought : '//weeklygame.zachshallbetter.com/noughtscrosses/assets/img/naught.png',
@@ -25,7 +25,7 @@ var ttt = new TTT(),
 
 // Get the current player
 TTT.prototype.currentPlayer = function() {
-    var symbol = (this.turn == 1) ? 'O' : 'X';
+    var symbol = (this.turn === 1) ? 'O' : 'X';
     ttt.message.html('It is ' + symbol + '\'s turn');
 };
 
@@ -68,7 +68,7 @@ TTT.prototype.cordinates = function(e) {
 // Set the entry 
 TTT.prototype.setEntry = function(row, column) {
 
-    if (ttt.turn == 1) {
+    if (ttt.turn === 1) {
         image.src = ttt.image.nought;
         ttt.turn = -1;
     } else {
@@ -88,7 +88,7 @@ TTT.prototype.setEntry = function(row, column) {
     // Display the next player
     ttt.currentPlayer();
 
-    console.log(ttt.turn)
+    console.log(ttt.turn);
 };
 
 TTT.prototype.ai = function() {
@@ -120,7 +120,7 @@ TTT.prototype.ai = function() {
     */
 
     // Check winner box
-    for(l = 0; l <= 23; l += 3) {
+    for(var l = 0; l <= 23; l += 3) {
         // Get the winning array
         var slices = Array.prototype.slice.call(ttt.win, l, l + 3);
         console.log(slices);
@@ -130,7 +130,7 @@ TTT.prototype.ai = function() {
     }
 
     // Loop through all of the winning array
-    for(k = 0; k <= 7; k+=1) {
+    for(var k = 0; k <= 7; k+=1) {
 
         console.log(k);
         
@@ -164,18 +164,18 @@ TTT.prototype.ai = function() {
     
     console.log('-------------');
 
-    function set(row, column, state) {
-        if (state === 'random') {
-            ttt.setEntry(row, column);
-        } else {
-            ttt.setEntry(row, column);
-        }
-    }
+    // function set(row, column, state) {
+    //     if (state === 'random') {
+    //         ttt.setEntry(row, column);
+    //     } else {
+    //         ttt.setEntry(row, column);
+    //     }
+    // }
 
 };
 
 // Check if the clicked box has symbol
-TTT.prototype.winner = function(row, column) {
+TTT.prototype.winner = function() {
 
     // Set winner from board to winner box
     for(var j = 0; j <= 2; j++) {
@@ -193,17 +193,17 @@ TTT.prototype.winner = function(row, column) {
     }
 
     // Check winner box
-    for(l = 0; l <= 23; l += 3) {
+    for(var l = 0; l <= 23; l += 3) {
         var slices = Array.prototype.slice.call(ttt.win, l, l + 3),
             check = ttt.boxes[parseInt(slices[0], 0)] + ttt.boxes[parseInt(slices[1], 0)] + ttt.boxes[parseInt(slices[2], 0)] % 3;
 
         //console.log(check);
 
-        if (check == 3 ) {
+        if (check === 3 ) {
             console.log('x wins');
             ttt.message.html('x wins');
             $('#ttt').off('click');
-        } else if (check == -3) {
+        } else if (check === -3) {
             console.log('o wins');
             ttt.message.html('o wins');
             $('#ttt').off('click');
@@ -211,7 +211,7 @@ TTT.prototype.winner = function(row, column) {
     }
 
     // Check for cat game
-    if ($.inArray( 0, ttt.boxes ) == -1) {
+    if ($.inArray( 0, ttt.boxes ) === -1) {
         console.log('cat game!');
         $('#ttt').off('click');
     }
